@@ -108,7 +108,56 @@ const Form = () => {
         resetForm,
       }) => (
         <form onSubmit={handleSubmit}>
-          <input type="text" />
+          <input
+            type="email"
+            name="email"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.email}
+            placeholder="you@example.com"
+            className={
+              Boolean(touched.email) && Boolean(errors.email)
+                ? "rounded-md py-4 px-3 border bg-white   border-solid border-red-800 shadow-sm focus:outline-none focus:border-red-800 text-sm placeholder:text-slate-400 w-full duration-150 "
+                : "rounded-md py-4 px-3 border bg-white   border-solid border-gray-400 shadow-sm focus:outline-none focus:border-sky-500 text-sm placeholder:text-slate-400 w-full duration-150"
+            }
+          />
+          <p className="text-xs text-red-800 pl-4 mb-4 mt-2">
+            {" "}
+            {errors.email && touched.email && errors.email}
+          </p>
+          <input
+            type="password"
+            name="password"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.password}
+            placeholder="password"
+            className={
+              Boolean(touched.password) && Boolean(errors.password)
+                ? "rounded-md py-4 px-3 border bg-white   border-solid border-red-800 shadow-sm focus:outline-none focus:border-red-800 text-sm placeholder:text-slate-400 w-full duration-150 "
+                : "rounded-md py-4 px-3 border bg-white   border-solid border-gray-400 shadow-sm focus:outline-none focus:border-sky-500 text-sm placeholder:text-slate-400 w-full duration-150"
+            }
+          />
+          <p className="text-xs text-red-800 pl-4 mb-4 mt-2">
+            {errors.password && touched.password && errors.password}
+          </p>
+          <button
+            type="submit"
+            className="w-full rounded-md mx-0 mb-8 py-4 bg-sky-300 text-white hover:bg-sky-100 duration-150"
+          >
+            {isLogin ? "LOGIN" : "REGISTER"}
+          </button>
+          <p
+            className="underline text-sky-300 hover:text-sky-100 cursor-pointer duration-150"
+            onClick={() => {
+              setPageType(isLogin ? "register" : "login");
+              resetForm();
+            }}
+          >
+            {isLogin
+              ? "Don't have an account? Sign Up here."
+              : "Already have an account? Login here."}
+          </p>
         </form>
       )}
     </Formik>
