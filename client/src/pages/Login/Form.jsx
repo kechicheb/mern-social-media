@@ -1,10 +1,11 @@
+import { MdOutlineModeEditOutline } from "react-icons/md";
 import { useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../../state";
-// import Dropzone from "react-dropzone";
+import Dropzone from "react-dropzone";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -108,6 +109,115 @@ const Form = () => {
         resetForm,
       }) => (
         <form onSubmit={handleSubmit}>
+          {isRegister && (
+            <>
+              <div className="flex gap-x-9 flex-col md:flex-row ">
+                <div className="flex-1">
+                  <input
+                    name="firstName"
+                    type="text"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.firstName}
+                    placeholder="First Name"
+                    className={
+                      Boolean(touched.firstName) && Boolean(errors.firstName)
+                        ? "rounded-md py-4 px-3 border bg-white   border-solid border-red-800 shadow-sm focus:outline-none focus:border-red-800 text-sm placeholder:text-slate-400 w-full duration-150 "
+                        : "rounded-md py-4 px-3 border bg-white   border-solid border-gray-400 shadow-sm focus:outline-none focus:border-sky-500 text-sm placeholder:text-slate-400 w-full duration-150"
+                    }
+                  />
+                  <p className="text-xs text-red-800 pl-4 mb-4 mt-2">
+                    {" "}
+                    {errors.firstName && touched.firstName && errors.firstName}
+                  </p>
+                </div>
+                <div className="flex-1">
+                  {" "}
+                  <input
+                    name="lastName"
+                    type="text"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.lastName}
+                    placeholder="Last Name"
+                    className={
+                      Boolean(touched.lastName) && Boolean(errors.lastName)
+                        ? "rounded-md py-4 px-3 border bg-white   border-solid border-red-800 shadow-sm focus:outline-none focus:border-red-800 text-sm placeholder:text-slate-400 w-full duration-150 "
+                        : "rounded-md py-4 px-3 border bg-white   border-solid border-gray-400 shadow-sm focus:outline-none focus:border-sky-500 text-sm placeholder:text-slate-400 w-full duration-150"
+                    }
+                  />
+                  <p className="text-xs text-red-800 pl-4 mb-4 mt-2">
+                    {" "}
+                    {errors.lastName && touched.lastName && errors.lastName}
+                  </p>
+                </div>
+              </div>
+              <input
+                name="location"
+                type="text"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.location}
+                placeholder="Location"
+                className={
+                  Boolean(touched.location) && Boolean(errors.location)
+                    ? "rounded-md py-4 px-3 border bg-white   border-solid border-red-800 shadow-sm focus:outline-none focus:border-red-800 text-sm placeholder:text-slate-400 w-full duration-150 "
+                    : "rounded-md py-4 px-3 border bg-white   border-solid border-gray-400 shadow-sm focus:outline-none focus:border-sky-500 text-sm placeholder:text-slate-400 w-full duration-150"
+                }
+              />
+              <p className="text-xs text-red-800 pl-4 mb-4 mt-2">
+                {" "}
+                {errors.location && touched.location && errors.location}
+              </p>
+              <input
+                name="occupation"
+                type="text"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.occupation}
+                placeholder="Occupation"
+                className={
+                  Boolean(touched.occupation) && Boolean(errors.occupation)
+                    ? "rounded-md py-4 px-3 border bg-white   border-solid border-red-800 shadow-sm focus:outline-none focus:border-red-800 text-sm placeholder:text-slate-400 w-full duration-150 "
+                    : "rounded-md py-4 px-3 border bg-white   border-solid border-gray-400 shadow-sm focus:outline-none focus:border-sky-500 text-sm placeholder:text-slate-400 w-full duration-150"
+                }
+              />
+              <p className="text-xs text-red-800 pl-4 mb-4 mt-2">
+                {" "}
+                {errors.occupation && touched.occupation && errors.occupation}
+              </p>
+
+              <div className="border border-solid border-gray-400 p-4 rounded-md mb-4">
+                <Dropzone
+                  acceptedFiles=".jpg,.jpeg,.png"
+                  multiple={false}
+                  onDrop={(acceptedFiles) =>
+                    setFieldValue("picture", acceptedFiles[0])
+                  }
+                >
+                  {({ getRootProps, getInputProps }) => (
+                    <div
+                      {...getRootProps()}
+                      className="border-2 border-dashed border-sky-300 hover:cursor-pointer p-4"
+                    >
+                      <input {...getInputProps()} />
+                      {!values.picture ? (
+                        <p className="text-slate-400 text-sm">
+                          Add Picture Here
+                        </p>
+                      ) : (
+                        <div className="flex justify-between">
+                          <p className="text-sm">{values.picture.name}</p>
+                          <MdOutlineModeEditOutline className="text-xl" />
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </Dropzone>
+              </div>
+            </>
+          )}
+
           <input
             type="email"
             name="email"
