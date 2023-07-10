@@ -1,10 +1,6 @@
 import { MdOutlineEdit } from "react-icons/md";
 import { MdOutlineLocationOn } from "react-icons/md";
-import { MdLocationPin } from "react-icons/md";
-import { IoLocationOutline } from "react-icons/io";
-import { GoLocation } from "react-icons/go";
 import { MdWorkOutline } from "react-icons/md";
-
 import { BsPersonFillGear } from "react-icons/bs";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -49,9 +45,9 @@ export default function UserWidget({ userId, picturePath }) {
         <div className="flex justify-between items-center gap-4">
           <UserImage image={picturePath} />
           <div>
-            <h3 className=" font-medium hover:cursor-pointer hover:opacity-50">
-              {firstName}
-              {lastName}
+            <h3 className=" text-gray-700 text-lg font-medium hover:cursor-pointer hover:opacity-50">
+              <span> {firstName}</span>
+              <span className="pl-1"> {lastName}</span>
             </h3>
             <p className="text-gray-400 text-sm">{friends.length} friends</p>
           </div>
