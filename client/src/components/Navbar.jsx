@@ -1,3 +1,4 @@
+import { IoIosArrowDown } from "react-icons/io";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { BsBellFill } from "react-icons/bs";
 import { MdMessage } from "react-icons/md";
@@ -60,16 +61,16 @@ export default function Navbar() {
         <div className="relative">
           <div
             onClick={() => setShow(!show)}
-            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 hover:cursor-pointer"
+            className="inline-flex w-full justify-center  items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 hover:cursor-pointer"
           >
-            {fullName}
+            {fullName} <IoIosArrowDown />
           </div>
 
           {show && (
             <div className="z-10  bg-white  divide-gray-100 rounded-lg shadow w-44  absolute right-0 mt-1 ">
               <ul className="py-2 text-sm text-gray-700 ">
-                <li>
-                  <span className="block px-4 py-2 hover:bg-gray-100 hover:cursor-pointer">
+                <li onClick={()=>navigate(`profile/${user._id}`)}>
+                  <span className="block px-4 py-2 hover:bg-gray-100 hover:cursor-pointer<IoIosArrowDown />">
                     Profile
                   </span>
                 </li>
