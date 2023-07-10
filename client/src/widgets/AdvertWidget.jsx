@@ -2,7 +2,7 @@ import React from "react";
 
 export default function AdvertWidget() {
   return (
-    <div className=" p-6 pb-3 rounded-xl bg-white">
+    <div className=" p-6 pb-3 rounded-xl bg-white mb-8">
       <div className="flex justify-between items-center">
         <p className="font-medium text-gray-700 text-lg"> Sponsored</p>
         <p className="text-sm text-gray-400">Create Ad</p>

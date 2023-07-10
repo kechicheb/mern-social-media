@@ -1,7 +1,47 @@
-import React from 'react'
+import Friend from "../components/Friend";
 
-export default function FriendListWidget() {
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setFriends } from "../state/index";
+
+const FriendListWidget = ({ userId }) => {
+  const dispatch = useDispatch();
+
+  const token = useSelector((state) => state.token);
+  const friends = useSelector((state) => state.user.friends);
+
+  const getFriends = async () => {
+    const response = await fetch(
+      `http://localhost:3001/users/${userId}/friends`,
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    const data = await response.json();
+    dispatch(setFriends({ friends: data }));
+  };
+
+  useEffect(() => {
+    getFriends();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
-    <div>FriendListWidget</div>
-  )
-}
+    <div className=" p-6 pb-3 rounded-xl bg-white mt8">
+      <p className="font-medium mb-6 ">Friend List</p>
+      <div className="flex flex-col gap-6">
+        {friends.map((friend) => (
+          <Friend
+            key={friend._id}
+            friendId={friend._id}
+            name={`${friend.firstName} ${friend.lastName}`}
+            subtitle={friend.occupation}
+            userPicturePath={friend.picturePath}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default FriendListWidget;
