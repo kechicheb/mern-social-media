@@ -41,7 +41,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
             navigate(0);
           }}
         >
-          <h5 className="font-medium text-gray-600 text-base break-keep">
+          <h5 className="font-medium text-gray-600 text-base break-keep hover:opacity-50 duration-150">
             {name}
           </h5>
           <p className="text-xs text-gray-400">{subtitle}</p>

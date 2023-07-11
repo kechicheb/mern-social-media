@@ -4,10 +4,10 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { MdOutlineFavorite } from "react-icons/md";
 
 import Friend from "../components/Friend";
+import SharePopup from "../components/SharePopup";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "../state";
-
 const PostWidget = ({
   postId,
   postUserId,
@@ -26,6 +26,11 @@ const PostWidget = ({
   const isLiked = Boolean(likes[loggedInUserId]);
   const likeCount = Object.keys(likes).length;
 
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleShareClick = () => {
+    setShowPopup(true);
+  };
   const patchLike = async () => {
     const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
       method: "PATCH",
@@ -84,7 +89,10 @@ const PostWidget = ({
           </div>
         </div>
 
-        <div className="text-gray-500 hover:bg-gray-100 hover:cursor-pointer  p-2 rounded-full duration-150">
+        <div
+          className="text-gray-500 hover:bg-gray-100 hover:cursor-pointer  p-2 rounded-full duration-150"
+          onClick={() => handleShareClick}
+        >
           <BiShareAlt className="text-xl " />
         </div>
       </div>
@@ -100,6 +108,7 @@ const PostWidget = ({
           ))}
         </div>
       )}
+      {showPopup && <SharePopup url={window.location.href} title="post" />}
     </div>
   );
 };
