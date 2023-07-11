@@ -42,7 +42,7 @@ export default function UserWidget({ userId, picturePath }) {
         className="flex justify-between items-center gap-4 pb-5  "
         onClick={() => navigate(`/profile/${userId}`)}
       >
-        <div className="flex justify-between items-center gap-4">
+        <div className="flex justify-between items-center gap-3">
           <UserImage image={picturePath} />
           <div>
             <h3 className=" text-gray-700 text-lg font-medium hover:cursor-pointer hover:opacity-50">

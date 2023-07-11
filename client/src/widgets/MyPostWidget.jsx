@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export default function MyPostWidget() {
-  return (
-    <div>MyPostWidget</div>
-  )
+  return <div>MyPostWidget</div>;
 }

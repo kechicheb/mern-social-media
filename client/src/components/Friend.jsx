@@ -1,5 +1,5 @@
-import { BsFillPersonDashFill } from "react-icons/bs";
-import { BsFillPersonPlusFill } from "react-icons/bs";
+import { MdOutlinePersonAddAlt1 } from "react-icons/md";
+import { MdOutlinePersonRemove } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFriends } from "../state";
@@ -32,7 +32,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   return (
     <div className="flex items-center justify-between">
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex items-center justify-between gap-3">
         <UserImage image={userPicturePath} size="55px" />
         <div
           className="cursor-pointer"
@@ -41,18 +41,22 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
             navigate(0);
           }}
         >
-          <p className="font-medium text-gray-500 text-base">{name}</p>
+          <h5 className="font-medium text-gray-600 text-base break-keep">
+            {name}
+          </h5>
           <p className="text-xs text-gray-400">{subtitle}</p>
         </div>
       </div>
-      <div onClick={() => patchFriend()} className="p-3">
+      <div onClick={() => patchFriend()}>
         {isFriend ? (
           <div className="text-cyan-700 bg-cyan-50 hover:cursor-pointer hover:opacity-50 p-3 rounded-full duration-150">
             {" "}
-            <BsFillPersonDashFill className="text-xl  " />
+            <MdOutlinePersonRemove className="text-xl  " />
           </div>
         ) : (
-          <BsFillPersonPlusFill />
+          <div className="text-cyan-700 bg-cyan-50 hover:cursor-pointer hover:opacity-50 p-3 rounded-full duration-150">
+            <MdOutlinePersonAddAlt1 className="text-xl" />
+          </div>
         )}
       </div>
     </div>
