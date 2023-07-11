@@ -31,7 +31,7 @@ const Profile = () => {
     <div className="bg-gray-100 min-h-screen">
       <Navbar />
       <div className="container mx-auto p-6 lg:pt-10 block lg:flex gap-10 justify-center">
-        <div className="basis-1/4">
+        <div className=" basis-1/4">
           <UserWidget userId={userId} picturePath={user.picturePath} />
 
           <div className="mt-8 lg:mt-10">

@@ -8,9 +8,9 @@ import { useSelector } from "react-redux";
 const Home = () => {
   const { _id, picturePath } = useSelector((state) => state.user);
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 min-h-screen relative">
       <Navbar />
-      <div className="container mx-auto p-6 lg:pt-10 block lg:flex gap-10">
+      <div className="container mx-auto p-6 lg:pt-10 block justify-between lg:flex gap-10">
         <div className="w-full lg:w-3/12">
           <UserWidget userId={_id} picturePath={picturePath} />
         </div>
