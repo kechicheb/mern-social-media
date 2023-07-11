@@ -15,6 +15,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const isFriend = friends.find((friend) => friend._id === friendId);
 
+  console.log( _id ===friendId);
   const patchFriend = async () => {
     const response = await fetch(
       `http://localhost:3001/users/${_id}/${friendId}`,
@@ -48,12 +49,13 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
         </div>
       </div>
       <div onClick={() => patchFriend()}>
-        {isFriend ? (
+        {isFriend && _id !== friendId && (
           <div className="text-cyan-700 bg-cyan-50 hover:cursor-pointer hover:opacity-50 p-3 rounded-full duration-150">
             {" "}
             <MdOutlinePersonRemove className="text-xl  " />
           </div>
-        ) : (
+        )}
+        {!isFriend && _id !== friendId && (
           <div className="text-cyan-700 bg-cyan-50 hover:cursor-pointer hover:opacity-50 p-3 rounded-full duration-150">
             <MdOutlinePersonAddAlt1 className="text-xl" />
           </div>
