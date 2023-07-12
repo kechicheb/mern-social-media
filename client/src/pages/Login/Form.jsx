@@ -39,7 +39,6 @@ const initialValuesLogin = {
 
 const Form = () => {
   const [pageType, setPageType] = useState("login");
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLogin = pageType === "login";
