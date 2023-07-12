@@ -1,13 +1,15 @@
+import { AiOutlineCloseCircle } from "react-icons/ai";
 import { BiShareAlt } from "react-icons/bi";
 import { MdChatBubbleOutline } from "react-icons/md";
 import { MdFavoriteBorder } from "react-icons/md";
 import { MdOutlineFavorite } from "react-icons/md";
 
 import Friend from "../components/Friend";
-import SharePopup from "../components/SharePopup";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "../state";
+import { FacebookShareButton, TwitterShareButton } from "react-share";
+import { FiFacebook, FiTwitter } from "react-icons/fi";
 const PostWidget = ({
   postId,
   postUserId,
@@ -25,12 +27,6 @@ const PostWidget = ({
   const loggedInUserId = useSelector((state) => state.user._id);
   const isLiked = Boolean(likes[loggedInUserId]);
   const likeCount = Object.keys(likes).length;
-
-  const [showPopup, setShowPopup] = useState(false);
-
-  const handleShareClick = () => {
-    setShowPopup(true);
-  };
   const patchLike = async () => {
     const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
       method: "PATCH",
@@ -42,6 +38,17 @@ const PostWidget = ({
     });
     const updatedPost = await response.json();
     dispatch(setPost({ post: updatedPost }));
+  };
+  let ref = useRef(postId);
+
+  const handleShare = (ref) => {
+    if (ref.current.classList.contains("hidden")) {
+      ref.current.classList.remove("hidden");
+      ref.current.classList.add("flex");
+    } else {
+      ref.current.classList.remove("flex");
+      ref.current.classList.add("hidden");
+    }
   };
 
   return (
@@ -89,11 +96,8 @@ const PostWidget = ({
           </div>
         </div>
 
-        <div
-          className="text-gray-500 hover:bg-gray-100 hover:cursor-pointer  p-2 rounded-full duration-150"
-          onClick={() => handleShareClick}
-        >
-          <BiShareAlt className="text-xl " />
+        <div className="text-gray-500 hover:bg-gray-100 hover:cursor-pointer  p-2 rounded-full duration-150">
+          <BiShareAlt className="text-xl " onClick={() => handleShare(ref)} />
         </div>
       </div>
       {isComments && (
@@ -108,7 +112,35 @@ const PostWidget = ({
           ))}
         </div>
       )}
-      {showPopup && <SharePopup url={window.location.href} title="post" />}
+
+      <div
+        className="fixed inset-0   items-center justify-center bg-gray-900 bg-opacity-50 hidden"
+        ref={ref}
+      >
+        <div className="bg-white  rounded-lg shadow-lg pt-3">
+          <div className="grid">
+            {" "}
+            <AiOutlineCloseCircle
+              className="place-self-end text-2xl text-gray-600 mt-2 mr-2 mb-4 cursor-pointer"
+              onClick={() => handleShare(ref)}
+            />
+          </div>
+          <p className="text-base text-gray-600  mb-4 px-6">Share this post</p>
+
+          <div className="flex space-x-4 px-6 pb-3">
+            <FacebookShareButton url={window.location.href} quote="post">
+              <button className="p-2 rounded-full bg-blue-500 text-white">
+                <FiFacebook />
+              </button>
+            </FacebookShareButton>
+            <TwitterShareButton url={window.location.href} title="post">
+              <button className="p-2 rounded-full bg-blue-400 text-white">
+                <FiTwitter />
+              </button>
+            </TwitterShareButton>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
